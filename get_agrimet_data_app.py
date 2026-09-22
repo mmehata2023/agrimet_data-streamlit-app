@@ -9,7 +9,7 @@ import streamlit as st
 import pandas as pd
 import requests
 from io import StringIO
-
+from datetime import datetime
 # ---------------------------------------------------------
 # Function to download and parse AgriMet daily data
 # ---------------------------------------------------------
@@ -141,14 +141,14 @@ st.title("AgriMet Daily Data Downloader (Multi-Year, Multi-Month)")
 st.write("Download daily data from USBR AgriMet by station, date range, and variables (pcodes).")
 
 station = st.text_input("Station ID (e.g., BOII)").upper()
-
+current_year = datetime.now().year
 col1, col2 = st.columns(2)
 with col1:
-    start_year = st.number_input("Start Year", min_value=1900, max_value=2100, value=2024)
+    start_year = st.number_input("Start Year", min_value=1950, max_value=current_year, value=current_year)
     start_month = st.number_input("Start Month (1–12)", min_value=1, max_value=12, value=1)
 
 with col2:
-    end_year = st.number_input("End Year", min_value=1900, max_value=2100, value=2026)
+    end_year = st.number_input("End Year", min_value=1950, max_value=current_year, value=current_year)
     end_month = st.number_input("End Month (1–12)", min_value=1, max_value=12, value=12)
 
 pcodes_input = st.text_input("PCODES (comma-separated, e.g., MN,MX,MM)").upper()
